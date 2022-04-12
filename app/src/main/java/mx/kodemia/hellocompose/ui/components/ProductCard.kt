@@ -15,12 +15,43 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import mx.kodemia.hellocompose.R
+import mx.kodemia.hellocompose.ui.theme.HelloComposeTheme
 import mx.kodemia.hellocompose.ui.theme.PlatziBlue
 
-//import mx.kodemia.hellocompose.ui.theme.PlatziBlue
+
+enum class CountryISO(val iso: String){
+    COL("COL"),
+    BRA("BRA"),
+    CRI("CRI"),
+    NIC("NIC");
+
+    fun getBackgroundImage(): Int {
+        when (this){
+            COL -> return R.drawable.banderita_colombia
+            BRA -> return R.drawable.banderita_colombia
+            CRI -> return R.drawable.banderita_colombia
+            NIC -> return R.drawable.banderita_colombia
+        }
+    }
+    fun getCountryFlag(): Int {
+        when (this){
+            COL -> return R.drawable.banderita_colombia
+            BRA -> return R.drawable.banderita_colombia
+            CRI -> return R.drawable.banderita_colombia
+            NIC -> return R.drawable.banderita_colombia
+        }
+    }
+
+
+
+}
+
 
 @Composable
-fun ProfuctCard() {
+fun ProfuctCard(name:String,
+                summary:String,
+                price:Double,
+                currency: String) {
     Card(
         //Para agregar muchos modifier se debe de agregar un punto
         modifier = Modifier
@@ -47,17 +78,25 @@ fun ProfuctCard() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text(text = "Café de colombia")
-                Text(text = "Café de origen de las montañas")
+                Text(name,
+                    style = MaterialTheme.typography.h4)
+                Text(summary,
+                style = MaterialTheme.typography.body1)
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Bottom
                 ) {
                     Row {
-                        Image(painterResource(id = R.drawable.banderita_colombia), contentDescription = null,
-                        modifier = Modifier.size(15.dp))
-                        Text(text = "$35 USD",
-                            modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.End)
+                        Image(
+                            painterResource(id = R.drawable.banderita_colombia),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp, 32.dp)
+                        )
+                        Text(
+                            text = "$ $price $currency",
+                            modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.End,
+                            style = MaterialTheme.typography.h4
+                        )
 
                     }
                 }
@@ -71,5 +110,8 @@ fun ProfuctCard() {
 )
 @Composable
 fun ProductCardPreview() {
-    ProfuctCard()
+    HelloComposeTheme{
+        ProfuctCard("Café de colombia", "Café de las montañas",
+                35.0,"USD")
+    }
 }
